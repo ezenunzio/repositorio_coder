@@ -1,0 +1,21 @@
+<form action="" method= "get"> 
+    
+    <input type="text" name="email" id="email">
+
+    <button type="submit" value="Enviar"> Buscar </button>
+</form>
+
+
+{% if profesores %}
+
+    <ul>
+    {% for profesor in profesores %}
+        <li> Profesor {{profesor.apellido}}, {{profesor.nombre}}. Email: {{profesor.email}} . Profesión: {{profesor.profesion}} </li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+
+    {{respuesta}}
+
+{% endif %}
