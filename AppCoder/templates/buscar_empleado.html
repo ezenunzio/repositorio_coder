@@ -1,0 +1,21 @@
+<form action="" method= "get"> 
+    
+    <input type="number" name="dni" id="dni">
+
+    <button type="submit" value="Enviar"> Buscar </button>
+</form>
+
+
+{% if empleados %}
+
+    <ul>
+    {% for empleado in empleados %}
+        <li> Empleado {{empleado.nombre}} {{empleado.apellido}} con DNI {{empleado.dni}} trabaja como {{empleado.puesto}} y su mail es {{empleado.email}}</li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+
+    {{respuesta}}
+
+{% endif %}

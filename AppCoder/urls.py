@@ -15,16 +15,15 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import mostrar_familia, mostrar_index, mostrar_referencias, mostrar_repaso, crear_curso, crear_profesor, buscar_comision, buscar_profesor
-
+from .views import mostrar_index
+from .views import crear_curso, crear_profesor, crear_empleado, buscar_comision, buscar_profesor, buscar_empleado
 
 urlpatterns = [
-    path("familiares/", mostrar_familia, name='familiares'), 
     path("", mostrar_index), 
-    path("mostrar_referencias/", mostrar_referencias, name='ref'), 
-    path("mostrar_repaso/", mostrar_repaso, name='repaso'), 
     path("crear_curso/", crear_curso, name='postCurso'), 
     path("crear_profesor/", crear_profesor, name='postProfesor'),
+    path("crear_empleado/", crear_empleado, name='postEmpleado'),
     path("buscar_comision/", buscar_comision, name='getComision'),
     path("buscar_profesor/", buscar_profesor, name='getProfesor'),
+    path("buscar_empleado/", buscar_empleado, name='getEmpleado'),
 ]

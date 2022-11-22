@@ -15,13 +15,6 @@ class Curso(models.Model):
     comision = models.IntegerField()
 
 
-class Estudiante(models.Model):
-
-    nombre = models.CharField(max_length=40)
-    apellido = models.CharField(max_length=40)
-    email = models.EmailField()
-
-
 class Profesor(models.Model):
     
     nombre = models.CharField(max_length=40)
@@ -29,12 +22,16 @@ class Profesor(models.Model):
     email = models.EmailField()
     profesion = models.CharField(max_length=40)
 
-    
-class Entregable(models.Model):
 
+
+
+class Empleado(models.Model):
+    
     nombre = models.CharField(max_length=40)
-    fecha_de_entrega = models.DateField()
-    entregado = models.BooleanField()
+    apellido = models.CharField(max_length=40)
+    email = models.EmailField()
+    puesto = models.CharField(max_length=40)
+    dni = models.IntegerField()
 
 
 
