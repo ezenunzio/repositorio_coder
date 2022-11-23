@@ -94,13 +94,15 @@ def crear_empleado(request):
 
 def buscar_comision(request):
 
-    if request.GET.get('comision', False):
-        comision = request.GET['comision']
-        cursos = Curso.objects.filter(comision__icontains=comision)
-
-        return render(request, 'buscar_comision.html', {'cursos': cursos})
+    if request.GET.get('comision', False): 
+        comision = request.GET['comision'] 
+        cursos = Curso.objects.filter(comision__icontains=comision) 
+        return render(request, 'buscar_comision.html', {'cursos': cursos}) 
     else:
-        respuesta = 'No hay datos'
+        if 'comision' in request.GET:
+            respuesta = 'No hay datos'
+        else:
+            respuesta = 'Haga la búsqueda'
     return render(request, 'buscar_comision.html', {'respuesta': respuesta}) 
 
 
@@ -112,7 +114,10 @@ def buscar_profesor(request):
 
         return render(request, 'buscar_profesor.html', {'profesores': profesores})
     else:
-        respuesta = 'No hay datos'
+        if 'email' in request.GET:
+            respuesta = 'No hay datos'
+        else:
+            respuesta = 'Haga la búsqueda'
     return render(request, 'buscar_profesor.html', {'respuesta': respuesta}) 
 
 def buscar_empleado(request):
@@ -123,5 +128,8 @@ def buscar_empleado(request):
 
         return render(request, 'buscar_empleado.html', {'empleados': empleados})
     else:
-        respuesta = 'No hay datos'
+        if 'dni' in request.GET:
+            respuesta = 'No hay datos'
+        else:
+            respuesta = 'Haga la búsqueda'
     return render(request, 'buscar_empleado.html', {'respuesta': respuesta}) 
