@@ -12,6 +12,10 @@
 #### Los botones de crear conducen a un formulario para agregar lo deseado a la DB y al presionar enviar sera redireccionado al home.
 #### Mientras que los botones de buscar mostrarán un listado actualizado de lo que contiene ese request a la DB.
 
+### Modelos:
+#### Empleado con atributos de nombre, apellido, email, puesto, dni
+#### Profesor con atributos de nombre, apellido, email, profesion
+#### Curso con atributos de nombre, comision
 
 ### Funcionalidad del Formulario de Creación
 #### Ejemplo: creación de un Empleado
@@ -22,5 +26,9 @@
 #### Ejemplo: búsqueda de Empleado
 
 #### El formulario admite búsqueda por DNI. El dni ingresado (al menos un número ya que no está programado que sea un dni válido) se envía en el request como valor para la clave 'dni' de un diccionario QueryDict. Dentro del servidor se verifica que el dni esté en el diccionario, luego procede a buscar en la DB los empleados que tengan el dni buscado y los mismos se registran en una lista. Si hay empleados en la lista se muestran en pantalla cada uno, en caso contrario muestra la leyenda 'No hay datos'. 
+
+
+
+
 
 
