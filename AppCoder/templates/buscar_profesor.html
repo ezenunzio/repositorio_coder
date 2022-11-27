@@ -1,8 +1,12 @@
+{% load static %}
+<link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
+<a class="btn btn-primary" href="{% url 'Página Principal' %}">Volver al Inicio</a>
+<p></p>
 <form action="" method= "get"> 
     
-    <input type="text" name="email" id="email">
-
+    <p> Email <input type="text" name="email" id="email"></p>
     <button type="submit" value="Enviar"> Buscar </button>
+
 </form>
 
 
@@ -10,7 +14,7 @@
 
     <ul>
     {% for profesor in profesores %}
-        <li> Profesor {{profesor.apellido}}, {{profesor.nombre}}. Email: {{profesor.email}} . Profesión: {{profesor.profesion}} </li>
+        <li> {{profesor}} </li>
     {% endfor %}
     </ul>
 

@@ -1,0 +1,18 @@
+{% load static %}
+<link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
+<a class="btn btn-primary" href="{% url 'Página Principal' %}">Volver al Inicio</a>
+<p></p>
+{% for profesor in  profesores %} 
+
+    <p>{{ profesor }} </p>
+    <button>
+        
+       <a href= {% url 'Eliminar Profesor' id_profesor=profesor.id %}> Eliminar </a>
+    
+    </button>
+    <button>
+        
+        <a href= {% url 'Actualizar Profesor' id_profesor=profesor.id %}> Actualizar </a>
+     
+     </button>
+{% endfor %}

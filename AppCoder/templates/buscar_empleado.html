@@ -1,16 +1,20 @@
+{% load static %}
+<link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
+<a class="btn btn-primary" href="{% url 'Página Principal' %}">Volver al Inicio</a>
+<p></p>
 <form action="" method= "get"> 
     
-    <input type="number" name="dni" id="dni">
-
+    <p> DNI <input type="number" name="dni" id="dni"> </p>
     <button type="submit" value="Enviar"> Buscar </button>
 </form>
 
+{{llaves}}
 
 {% if empleados %}
 
     <ul>
     {% for empleado in empleados %}
-        <li> Empleado {{empleado.nombre}} {{empleado.apellido}} con DNI {{empleado.dni}} trabaja como {{empleado.puesto}} y su mail es {{empleado.email}}</li>
+        <li> {{empleado}} </li>
     {% endfor %}
     </ul>
 

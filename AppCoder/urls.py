@@ -16,14 +16,18 @@ Including another URLconf
 
 from django.urls import path
 from .views import mostrar_index
-from .views import crear_curso, crear_profesor, crear_empleado, buscar_comision, buscar_profesor, buscar_empleado
+from . import views 
 
 urlpatterns = [
-    path("", mostrar_index), 
-    path("crear_curso/", crear_curso, name='postCurso'), 
-    path("crear_profesor/", crear_profesor, name='postProfesor'),
-    path("crear_empleado/", crear_empleado, name='postEmpleado'),
-    path("buscar_comision/", buscar_comision, name='getComision'),
-    path("buscar_profesor/", buscar_profesor, name='getProfesor'),
-    path("buscar_empleado/", buscar_empleado, name='getEmpleado'),
+    path("", mostrar_index, name='Página Principal'), 
+    path("crear_curso/", views.crear_curso, name='Crear Curso'), 
+    path("crear_profesor/", views.crear_profesor, name='Crear Profesor'),
+    path("crear_empleado/", views.crear_empleado, name='Crear Empleado'),
+    path("buscar_comision/", views.buscar_comision, name='Buscar Comision'),
+    path("buscar_profesor/", views.buscar_profesor, name='Buscar Profesor'),
+    path("buscar_empleado/", views.buscar_empleado, name='Buscar Empleado'),
+    path("mostrar_profesores/", views.mostrar_profesores, name='Mostrar Profesor'),
+    path("eliminar_profesor/<id_profesor>", views.eliminar_profesor, name='Eliminar Profesor'),
+    path("actualizar_profesor/<id_profesor>", views.actualizar_profesor, name='Actualizar Profesor'),
+    path("curso_list/", views.CursoList.as_view(), name='List'),
 ]

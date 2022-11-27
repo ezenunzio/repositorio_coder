@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 from .models import Curso, Profesor, Empleado
 from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm
 # Create your views here.
@@ -11,13 +12,14 @@ from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm
    f2 = Familia(nombre="Lisandro", apellido="Nunzio", edad=25, cumpleanios='1997-03-09')
    f3 = Familia(nombre="Ezequiel", apellido="Nunzio", edad=22,cumpleanios='2000-09-10')
    f4 = Familia(nombre="Carina", apellido="Martinez", edad=51, cumpleanios='1963-08-11')
-   return render(request, 'familiares.html', {'familia':[f1, f2, f3, f4]})
+   contexto = {'familia':[f1, f2, f3, f4]}
+   return render(request, 'Examples/familiares.html',context=contexto)
 
 def mostrar_referencias(request):
-    return render(request, 'referencias.html')
+    return render(request, 'Examples/referencias.html')
 
 def mostrar_repaso(request):
-    return render(request, 'repaso.html')'''
+    return render(request, 'Examples/repaso.html') '''
 
 def mostrar_index(request):
     return render(request, 'index.html')
@@ -133,3 +135,54 @@ def buscar_empleado(request):
         else:
             respuesta = 'Haga la búsqueda'
     return render(request, 'buscar_empleado.html', {'respuesta': respuesta}) 
+
+
+def mostrar_profesores(request):
+
+    profesores = Profesor.objects.all
+    context = {'profesores': profesores}
+
+    return render(request, 'mostrar_profesores.html', context= context)
+
+
+def eliminar_profesor(request, id_profesor ):
+
+    profesor = Profesor.objects.get(id=id_profesor)
+
+    profesor.delete()
+
+    profesores = Profesor.objects.all
+    context = {'profesores': profesores}
+
+    return render(request, 'mostrar_profesores.html', context= context)
+
+
+def actualizar_profesor(request, id_profesor):
+        
+    profesor = Profesor.objects.get(id=id_profesor)
+
+    if request.method == "POST":
+        
+        proForm = CrearProfesorForm(request.POST)
+
+        if proForm.is_valid():
+        
+            formulario_limpio = proForm.cleaned_data
+
+            profesor.__set__(nombre=formulario_limpio['nombre'], apellido=formulario_limpio['apellido'], email=formulario_limpio['email'], profesion=formulario_limpio['profesion'])
+
+            profesor.save()
+
+            return render(request, "index.html")
+
+    else:
+
+        proForm = CrearProfesorForm(initial={'nombre': profesor.nombre, 'apellido': profesor.apellido, 'email': profesor.email, 'profesion': profesor.profesion,})
+        
+    return render(request, "actualizar_profesor.html", {"profesor": proForm})
+
+
+
+class CursoList(ListView):
+    model = Curso
+    template_name = 'AppCoder/cursos_list.html'

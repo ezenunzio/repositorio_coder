@@ -1,8 +1,10 @@
-
+{% load static %}
+<link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
+<a class="btn btn-primary" href="{% url 'Página Principal' %}">Volver al Inicio</a>
+<p></p>
 <form action="" method= "get"> 
     
-    <input type="text" name="comision" id="comision">
-
+    <p> Comisión <input type="text" name="comision" id="comision"> </p>
     <button type="submit" value="Enviar"> Buscar </button>
 </form>
 
@@ -11,7 +13,7 @@
 
     <ul>
     {% for curso in cursos %}
-        <li> Curso de {{curso.nombre}} con numero {{curso.comision}} </li>
+        <li> {{curso}} </li>
     {% endfor %}
     </ul>
 
@@ -20,3 +22,4 @@
     {{respuesta}}
 
 {% endif %}
+
