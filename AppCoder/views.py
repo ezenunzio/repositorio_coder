@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 from .models import Curso, Profesor, Empleado
 from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm
 # Create your views here.
@@ -186,3 +187,8 @@ def actualizar_profesor(request, id_profesor):
 class CursoList(ListView):
     model = Curso
     template_name = 'AppCoder/cursos_list.html'
+
+
+class CursoDetailView(DetailView):
+    model = Curso
+    template_name = 'AppCoder/curso_detail.html'

@@ -30,4 +30,5 @@ urlpatterns = [
     path("eliminar_profesor/<id_profesor>", views.eliminar_profesor, name='Eliminar Profesor'),
     path("actualizar_profesor/<id_profesor>", views.actualizar_profesor, name='Actualizar Profesor'),
     path("curso_list/", views.CursoList.as_view(), name='List'),
+    path("curso_detail/ <pk>", views.CursoDetailView.as_view(), name='Detail'),
 ]
