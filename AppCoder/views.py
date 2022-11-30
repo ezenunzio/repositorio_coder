@@ -1,9 +1,18 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+#Redirección
+from django.urls import reverse_lazy
+#Auth
+from django.contrib.auth.views import LoginView, LogoutView
+#Modelos
 from .models import Curso, Profesor, Empleado
-from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm
+#Formularios
+from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm, SignUpForm
+
+
 # Create your views here.
 
 
@@ -184,7 +193,7 @@ def actualizar_profesor(request, id_profesor):
     return render(request, "actualizar_profesor.html", {"profesor": proForm})
 
 
-
+#Vistas basadas en Clases.
 class CursoList(ListView):
     model = Curso
     template_name = 'AppCoder/curso_list.html'
@@ -196,7 +205,7 @@ class CursoDetailView(DetailView):
 
 
 class CursoDeleteView(DeleteView):
-    #Recordatorio: en success_url, utilizar el nombre de la url
+    #Recordatorio: en success_url, utilizar el nombre de la url. Este permite redirigir a otro template
     #Ejemplo:
     #path("curso_list/", views.CursoList.as_view(), name='List')
     #en este caso utilizar el string del primer parámetro
@@ -205,21 +214,26 @@ class CursoDeleteView(DeleteView):
     success_url = '/curso_list'
 
 class CursoUpdateView(UpdateView):
-    #Recordatorio: en success_url, utilizar el nombre de la url
-    #Ejemplo:
-    #path("curso_list/", views.CursoList.as_view(), name='List')
-    #en este caso utilizar el string del primer parámetro
-    #antecedido de un /
     model = Curso
     success_url = '/curso_list'
     fields = ['nombre', 'comision']
 
 class CursoCreateView(CreateView):
-    #Recordatorio: en success_url, utilizar el nombre de la url
-    #Ejemplo:
-    #path("curso_list/", views.CursoList.as_view(), name='List')
-    #en este caso utilizar el string del primer parámetro
-    #antecedido de un /
     model = Curso
     success_url = '/curso_list'
     fields = ['nombre', 'comision']
+
+
+#Register
+class SignUpView(CreateView):
+
+    form_class = SignUpForm
+    success_url = reverse_lazy('Home')
+    template_name = 'registro.html'
+
+
+class AdminLoginView(LoginView):
+    template_name = 'login.html'
+
+class AdminLogoutView(LogoutView):
+    template_name = 'logout.html'

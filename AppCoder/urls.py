@@ -19,7 +19,7 @@ from .views import mostrar_index
 from . import views 
 
 urlpatterns = [
-    path("", mostrar_index, name='Página Principal'), 
+    path("", mostrar_index, name='Home'), 
     path("crear_curso/", views.crear_curso, name='Crear Curso'), 
     path("crear_profesor/", views.crear_profesor, name='Crear Profesor'),
     path("crear_empleado/", views.crear_empleado, name='Crear Empleado'),
@@ -34,4 +34,7 @@ urlpatterns = [
     path("curso_confirm_delete/ <pk>", views.CursoDeleteView.as_view(), name='Delete'),
     path("curso_edit/ <pk>", views.CursoUpdateView.as_view(), name='Update'),
     path("curso_form/", views.CursoCreateView.as_view(), name='Create'),
+    path("signup/", views.SignUpView.as_view(), name='Sign Up'),
+    path("login/", views.AdminLoginView.as_view(), name='Login'),
+    path("logout/", views.AdminLogoutView.as_view(), name='Logout'),
 ]
