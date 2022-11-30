@@ -5,8 +5,14 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 #Redirección
 from django.urls import reverse_lazy
+
 #Auth
 from django.contrib.auth.views import LoginView, LogoutView
+#.Los decoradores sirven para vistas basadas en funciones
+from django.contrib.auth.decorators import login_required #valida que el usuario haya iniciado sesión antes de ejecutar 
+#Los mixins sirven para vistas basadas en clases
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 #Modelos
 from .models import Curso, Profesor, Empleado
 #Formularios
@@ -32,6 +38,7 @@ def mostrar_referencias(request):
 def mostrar_repaso(request):
     return render(request, 'Examples/repaso.html') '''
 
+@login_required #valida que el usuario haya iniciado sesión antes de ejecutar la vista 
 def mostrar_index(request):
     return render(request, 'index.html')
 
@@ -194,7 +201,7 @@ def actualizar_profesor(request, id_profesor):
 
 
 #Vistas basadas en Clases.
-class CursoList(ListView):
+class CursoList(LoginRequiredMixin, ListView): ## LoginRequiredMixin es una clase que valida que el usuario haya iniciado sesión antes de ejecutar la vista
     model = Curso
     template_name = 'AppCoder/curso_list.html'
 
