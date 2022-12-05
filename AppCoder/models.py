@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Familia(models.Model):
@@ -47,6 +48,9 @@ class Empleado(models.Model):
         return f'ID: {self.id}, Nombre: {self.nombre}, Apellido: {self.apellido}, Email: {self.email}, Puesto Laboral: {self.puesto}, DNI: {self.dni}'
 
 
+class Avatar(models.Model):
 
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    imagen = models.ImageField(upload_to='media/', null=True, blank=True)
 

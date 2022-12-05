@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required #valida que el usuario
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Modelos
-from .models import Curso, Profesor, Empleado
+from .models import Curso, Profesor, Empleado, Avatar
 #Formularios
 from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm, SignUpForm, UserEditForm
 
@@ -42,6 +42,9 @@ def mostrar_repaso(request):
 
 #@login_required #--valida que el usuario haya iniciado sesión antes de ejecutar la vista 
 def mostrar_index(request):
+
+    "imagenes = Avatar.objects.filter(user=request.user.id)[0].imagen.url"
+
     return render(request, 'index.html')
 
 
