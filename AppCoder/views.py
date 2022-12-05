@@ -1,7 +1,7 @@
 from django.shortcuts import render
+
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 #Redirección
 from django.urls import reverse_lazy
@@ -16,14 +16,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Modelos
 from .models import Curso, Profesor, Empleado
 #Formularios
-from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm, SignUpForm
+from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm, SignUpForm, UserEditForm
 
 
 # Create your views here.
 
 
 
-'''def mostrar_familia(request):
+'''
+def mostrar_familia(request):
     
    f1 = Familia(nombre="Pablo", apellido="Nunzio", edad=55, cumpleanios='1967-04-11')
    f2 = Familia(nombre="Lisandro", apellido="Nunzio", edad=25, cumpleanios='1997-03-09')
@@ -36,11 +37,13 @@ def mostrar_referencias(request):
     return render(request, 'Examples/referencias.html')
 
 def mostrar_repaso(request):
-    return render(request, 'Examples/repaso.html') '''
+    return render(request, 'Examples/repaso.html') 
+'''
 
-@login_required #valida que el usuario haya iniciado sesión antes de ejecutar la vista 
+#@login_required #--valida que el usuario haya iniciado sesión antes de ejecutar la vista 
 def mostrar_index(request):
     return render(request, 'index.html')
+
 
 def crear_curso(request):
 
@@ -199,6 +202,34 @@ def actualizar_profesor(request, id_profesor):
         
     return render(request, "actualizar_profesor.html", {"profesor": proForm})
 
+def editar_usuario(request):
+    usuario = request.user
+
+    if request.method == 'POST':
+        usuario_form = UserEditForm(request.POST)
+
+        if usuario_form.is_valid():
+            informacion = usuario_form.cleaned_data()
+
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+
+            usuario.save()
+
+            return render(request, 'index.html')
+    
+    else:
+        usuario_form = UserEditForm(initial = {
+            'username': usuario.username,
+            'email': usuario.email
+            })
+    return render(request, 'AppCoder/admin_update.html', {
+        'form': usuario_form, 
+        'usuario': usuario
+        })
+
 
 #Vistas basadas en Clases.
 class CursoList(LoginRequiredMixin, ListView): ## LoginRequiredMixin es una clase que valida que el usuario haya iniciado sesión antes de ejecutar la vista
@@ -236,7 +267,7 @@ class SignUpView(CreateView):
 
     form_class = SignUpForm
     success_url = reverse_lazy('Home')
-    template_name = 'registro.html'
+    template_name = 'signup.html'
 
 
 class AdminLoginView(LoginView):

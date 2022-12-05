@@ -1,25 +1,29 @@
-<button>
-    <a class="btn btn-primary" href="{% url 'Home' %}">Volver al Inicio</a>
-</button>
-{% for curso in  object_list %}
+{% extends 'index.html' %}
+{% load static %}
 
-<ul>
-    <li>
-        {{curso}}
-        <button>
-                <a href= {% url 'Detail' curso.id %}> Ver Detalles </a>
-        </button>
-        <button>
-            <a href= {% url 'Delete' curso.id %}> Eliminar </a>
-        </button>
-        <button>
-            <a href= {% url 'Update' curso.id %}> Actualizar </a>
-        </button>
-    </li>
-</ul>
+{% block codigoDinamico %}
+<h3> Listado de Cursos </h3>
+    {% for curso in  object_list %}
 
-{% endfor %}
+    <ul>
+        <li>
+            {{curso}}
+            <button>
+                    <a href= {% url 'Detail' curso.id %}> Ver Detalles </a>
+            </button>
+            <button>
+                <a href= {% url 'Delete' curso.id %}> Eliminar </a>
+            </button>
+            <button>
+                <a href= {% url 'Update' curso.id %}> Actualizar </a>
+            </button>
+        </li>
+    </ul>
 
-<button>
-    <a href= {% url 'Create' %}> Crear nuevo registro</a>
-</button>
+    {% endfor %}
+
+    <button>
+        <a href= {% url 'Create' %}> Crear nuevo registro</a>
+    </button>
+
+{% endblock %}
