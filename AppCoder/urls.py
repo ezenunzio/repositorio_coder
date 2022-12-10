@@ -15,11 +15,10 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import mostrar_index
 from . import views 
 
 urlpatterns = [
-    path("", mostrar_index, name='Home'),
+    path("", views.mostrar_index, name='Home'),
     path("curso_list/", views.CursoList.as_view(), name='List'),
     path("curso_detail/ <pk>", views.CursoDetailView.as_view(), name='Detail'),
     path("curso_confirm_delete/ <pk>", views.CursoDeleteView.as_view(), name='Delete'),
