@@ -3,13 +3,6 @@ from django.views.generic.edit import CreateView
 #Redirección
 from django.urls import reverse_lazy
 
-#Auth
-from django.contrib.auth.views import LoginView, LogoutView
-#.Los decoradores sirven para vistas basadas en funciones
-from django.contrib.auth.decorators import login_required #valida que el usuario haya iniciado sesión antes de ejecutar 
-#Los mixins sirven para vistas basadas en clases
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 #Formularios
 from .forms import SignUpForm, UserEditForm
 
@@ -19,14 +12,8 @@ class SignUpView(CreateView):
 
     form_class = SignUpForm
     success_url = reverse_lazy('Home')
-    template_name = 'signup.html'
+    template_name = 'usuarios/signup.html'
 
-
-class AdminLoginView(LoginView):
-    template_name = 'login.html'
-
-class AdminLogoutView(LogoutView):
-    template_name = 'logout.html'
 
 def editar_usuario(request):
     usuario = request.user
@@ -51,7 +38,7 @@ def editar_usuario(request):
             'username': usuario.username,
             'email': usuario.email
             })
-    return render(request, 'AppCoder/admin_update.html', {
+    return render(request, 'publicaciones/admin_update.html', {
         'form': usuario_form, 
         'usuario': usuario
         })

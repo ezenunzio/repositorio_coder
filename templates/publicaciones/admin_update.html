@@ -1,9 +1,7 @@
-{% extends 'index.html' %}
-{% load static %}
-
-{% block codigoDinamico %}
 <form action = "" method='post'> {% csrf_token %}
     {{form.as_p}}
     <button type = "submit"> Editar </button>
 </form>
-{% endblock %}
+<button>
+    <a class="btn btn-primary" href="{% url 'Home' %}">Volver al Inicio</a>
+</button>

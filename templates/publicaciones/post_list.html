@@ -1,13 +1,10 @@
-{% extends 'index.html' %}
-{% load static %}
-
 {% block codigoDinamico %}
 <h3> Listado de Cursos </h3>
-    {% for curso in  object_list %}
+    {% for post in object_list %}
 
     <ul>
         <li>
-            {{curso}}
+            {{post}}
             <button>
                     <a href= {% url 'Detail' curso.id %}> Ver Detalles </a>
             </button>
@@ -24,6 +21,10 @@
 
     <button>
         <a href= {% url 'Create' %}> Crear nuevo registro</a>
+    </button>
+
+    <button>
+        <a class="btn btn-primary" href="{% url 'Home' %}">Volver al Inicio</a>
     </button>
 
 {% endblock %}

@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required #valida que el usuario
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Modelos
-from .models import Curso, Profesor, Empleado, Avatar
+
 #Formularios
 from .forms import CrearCursoForm, CrearProfesorForm, CrearEmpleadoForm, SignUpForm, UserEditForm
 
@@ -38,7 +38,7 @@ def mostrar_referencias(request):
 
 def mostrar_repaso(request):
     return render(request, 'Examples/repaso.html') 
-'''
+
 
 #@login_required #--valida que el usuario haya iniciado sesión antes de ejecutar la vista 
 def mostrar_index(request):
@@ -205,44 +205,16 @@ def actualizar_profesor(request, id_profesor):
         
     return render(request, "actualizar_profesor.html", {"profesor": proForm})
 
-def editar_usuario(request):
-    usuario = request.user
-
-    if request.method == 'POST':
-        usuario_form = UserEditForm(request.POST)
-
-        if usuario_form.is_valid():
-            informacion = usuario_form.cleaned_data()
-
-            usuario.username = informacion['username']
-            usuario.email = informacion['email']
-            usuario.password1 = informacion['password1']
-            usuario.password2 = informacion['password2']
-
-            usuario.save()
-
-            return render(request, 'index.html')
-    
-    else:
-        usuario_form = UserEditForm(initial = {
-            'username': usuario.username,
-            'email': usuario.email
-            })
-    return render(request, 'AppCoder/admin_update.html', {
-        'form': usuario_form, 
-        'usuario': usuario
-        })
-
 
 #Vistas basadas en Clases.
 class CursoList(LoginRequiredMixin, ListView): ## LoginRequiredMixin es una clase que valida que el usuario haya iniciado sesión antes de ejecutar la vista
     model = Curso
-    template_name = 'AppCoder/curso_list.html'
+    template_name = 'publicaciones/curso_list.html'
 
 
 class CursoDetailView(DetailView):
     model = Curso
-    template_name = 'AppCoder/curso_detail.html'
+    template_name = 'publicaciones/curso_detail.html'
 
 
 class CursoDeleteView(DeleteView):
@@ -263,18 +235,5 @@ class CursoCreateView(CreateView):
     model = Curso
     success_url = '/curso_list'
     fields = ['nombre', 'comision']
+'''
 
-
-#Register
-class SignUpView(CreateView):
-
-    form_class = SignUpForm
-    success_url = reverse_lazy('Home')
-    template_name = 'signup.html'
-
-
-class AdminLoginView(LoginView):
-    template_name = 'login.html'
-
-class AdminLogoutView(LogoutView):
-    template_name = 'logout.html'
